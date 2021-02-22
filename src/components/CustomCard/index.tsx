@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-const PostCard = ({ data, onClick }: any) => {
+import { Button } from 'reactstrap';
+const CustomCard = ({ data, onClick, title }: any) => {
   return (
     <Card style={{ width: '30rem' }}>
       <Card.Body>
@@ -10,11 +11,11 @@ const PostCard = ({ data, onClick }: any) => {
         </Card.Subtitle>
         <Card.Text>{data.body}</Card.Text>
         <Card.Link>
-          <button onClick={onClick}>Comments</button>
+          <Button onClick={onClick}>{title}</Button>
         </Card.Link>
       </Card.Body>
     </Card>
   );
 };
 
-export default PostCard;
+export default CustomCard;

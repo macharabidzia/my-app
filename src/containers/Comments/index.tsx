@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles.css';
-import CommentCard from '../../components/CommentCard';
 import IComment from '../../core/models/comment.model';
 import { listComments } from '../../core/store/comments/actions';
+import CustomCard from '../../components/CustomCard';
 
 const Comments = () => {
   const commentList = useSelector((state: any) => state.comments);
@@ -41,14 +41,13 @@ const Comments = () => {
   }, [dispatch, page, postId]);
 
   useEffect(() => {
-    console.log(comments);
     setCurrentComments((prev: any) => [...prev, ...comments]);
   }, [comments]);
 
   return (
     <div onScroll={handleScroll} className="comments">
       {currentComments.map((comment: any, index: number) => (
-        <CommentCard data={comment} key={index} />
+        <CustomCard title="Reply" data={comment} key={index} />
       ))}
     </div>
   );

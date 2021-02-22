@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PostCard from '../../components/PostCard';
 import './styles.css';
 import IPost from '../../core/models/post.model';
 import { setActivePostId } from '../../core/store/comments/actions';
 import { listPosts } from '../../core/store/posts/actions';
+import CustomCard from '../../components/CustomCard';
 interface IPostList {
   loading: boolean;
   error: string;
@@ -40,10 +40,11 @@ const Posts = () => {
   return (
     <div onScroll={handleScroll} className="posts">
       {currentPosts.map((post: any, index: any) => (
-        <PostCard
+        <CustomCard
           onClick={() => handleClick(post.id)}
           data={post}
           key={index}
+          title="Comments"
         />
       ))}
     </div>
