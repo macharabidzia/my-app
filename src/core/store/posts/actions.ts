@@ -4,7 +4,10 @@ import {
   POSTS_LIST_FAIL,
 } from './constants';
 import axios from 'axios';
-export const listPosts = () => async (dispatch: any, getState: any) => {
+export const listPosts = (page: number) => async (
+  dispatch: any,
+  getState: any
+) => {
   try {
     dispatch({
       type: POSTS_LIST_REQUEST,
@@ -16,9 +19,10 @@ export const listPosts = () => async (dispatch: any, getState: any) => {
       `https://jsonplaceholder.typicode.com/posts`,
       config
     );
+    const paginatedData = data.slice((page - 1) * 10, page * 10);
     dispatch({
       type: POSTS_LIST_SUCCESS,
-      payload: data,
+      payload: paginatedData,
     });
   } catch (error) {
     dispatch({

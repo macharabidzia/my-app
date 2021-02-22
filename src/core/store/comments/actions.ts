@@ -2,9 +2,10 @@ import {
   COMMENTS_LIST_REQUEST,
   COMMENTS_LIST_SUCCESS,
   COMMENTS_LIST_FAIL,
+  COMMENTS_SET_ACTIVE_POST_ID,
 } from './constants';
 import axios from 'axios';
-export const listComments = (postId: number) => async (
+export const listComments = (postId: number, page: number) => async (
   dispatch: any,
   getState: any
 ) => {
@@ -19,9 +20,11 @@ export const listComments = (postId: number) => async (
       `https://jsonplaceholder.typicode.com/comments/?postId=${postId}`,
       config
     );
+    console.log(data);
+    const commentsPayload = data.slice((page - 1) * 10, page * 10);
     dispatch({
       type: COMMENTS_LIST_SUCCESS,
-      payload: data,
+      payload: commentsPayload,
     });
   } catch (error) {
     dispatch({
@@ -32,4 +35,8 @@ export const listComments = (postId: number) => async (
           : error.message,
     });
   }
+};
+
+export const setActivePostId = (id: number) => {
+  return { type: COMMENTS_SET_ACTIVE_POST_ID, payload: id };
 };

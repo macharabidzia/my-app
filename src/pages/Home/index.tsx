@@ -8,10 +8,14 @@ const Home = () => {
     <Container>
       <Row>
         <Col>
-          <Posts />
+          <div className="home_postsWrapper">
+            <Posts />
+          </div>
         </Col>
         <Col>
-          <Comments />
+          <div className="home_postsWrapper">
+            <Comments />
+          </div>
         </Col>
       </Row>
     </Container>

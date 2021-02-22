@@ -10,14 +10,16 @@ export const postsListReducer = (
 ) => {
   switch (action.type) {
     case POSTS_LIST_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true };
     case POSTS_LIST_SUCCESS:
       return {
+        ...state,
         loading: false,
         posts: action.payload,
       };
     case POSTS_LIST_FAIL:
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
+
     default:
       return state;
   }

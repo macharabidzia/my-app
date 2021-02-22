@@ -1,23 +1,53 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import './styles.css';
 import CommentCard from '../../components/CommentCard';
 import IComment from '../../core/models/comment.model';
+import { listComments } from '../../core/store/comments/actions';
 
 const Comments = () => {
   const commentList = useSelector((state: any) => state.comments);
-
+  const [page, setpage] = useState(1);
+  const dispatch = useDispatch();
+  const [currentComments, setCurrentComments]: any = useState([]);
   const {
     loading = true,
     error,
+    postId,
     comments = [],
-  }: { loading: boolean; error: string; comments: IComment[] } = commentList;
+  }: {
+    loading: boolean;
+    error: string;
+    comments: IComment[];
+    postId: number;
+  } = commentList;
+  const tempPostId = useRef(postId);
+
+  const handleScroll = (event: any) => {
+    const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
+    if (scrollHeight - scrollTop === clientHeight) {
+      setpage((prev) => prev + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (postId !== tempPostId.current) {
+      setpage(1);
+      setCurrentComments([]);
+      tempPostId.current = postId;
+    }
+    dispatch(listComments(postId, page));
+    tempPostId.current = postId;
+  }, [dispatch, page, postId]);
 
   useEffect(() => {
     console.log(comments);
-  });
+    setCurrentComments((prev: any) => [...prev, ...comments]);
+  }, [comments]);
+
   return (
-    <div className="comments">
-      {comments.map((comment, index) => (
+    <div onScroll={handleScroll} className="comments">
+      {currentComments.map((comment: any, index: number) => (
         <CommentCard data={comment} key={index} />
       ))}
     </div>
