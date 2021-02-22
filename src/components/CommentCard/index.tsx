@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-const PostCard = ({ data, onClick }: any) => {
+const CommentCard = ({ data }: any) => {
   return (
     <Card style={{ width: '30rem' }}>
       <Card.Body>
@@ -9,12 +9,10 @@ const PostCard = ({ data, onClick }: any) => {
           Giorgi Matcharashvili
         </Card.Subtitle>
         <Card.Text>{data.body}</Card.Text>
-        <Card.Link>
-          <button onClick={onClick}>Comments</button>
-        </Card.Link>
+        <Card.Link href="#">Reply</Card.Link>
       </Card.Body>
     </Card>
   );
 };
 
-export default PostCard;
+export default CommentCard;

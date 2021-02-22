@@ -4,7 +4,10 @@ import {
   COMMENTS_LIST_FAIL,
 } from './constants';
 import axios from 'axios';
-export const listComments = () => async (dispatch: any, getState: any) => {
+export const listComments = (postId: number) => async (
+  dispatch: any,
+  getState: any
+) => {
   try {
     dispatch({
       type: COMMENTS_LIST_REQUEST,
@@ -13,7 +16,7 @@ export const listComments = () => async (dispatch: any, getState: any) => {
       headers: {},
     };
     const { data } = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts`,
+      `https://jsonplaceholder.typicode.com/comments/?postId=${postId}`,
       config
     );
     dispatch({

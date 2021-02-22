@@ -1,20 +1,17 @@
 import React from 'react';
-import PostCard from '../../components/PostCard';
 import { Container, Row, Col } from 'reactstrap';
 import './home.css';
+import Posts from '../../containers/Posts';
+import Comments from '../../containers/Comments';
 const Home = () => {
   return (
     <Container>
       <Row>
         <Col>
-          <div className="home_postsWrapper">
-            <PostCard />
-          </div>
+          <Posts />
         </Col>
         <Col>
-          <div className="home_commentsWrapper">
-            <PostCard />
-          </div>
+          <Comments />
         </Col>
       </Row>
     </Container>
