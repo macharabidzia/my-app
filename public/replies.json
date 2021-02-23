@@ -19,5 +19,19 @@
         "postId": 1,
         "text": "Good, that's a nice picture you got over there",
         "commentId": 1
+    },
+    {
+        "id": 4,
+        "userId": 1,
+        "postId": 1,
+        "text": "Good, that's a nice picture you got over there",
+        "commentId": 2
+    },
+    {
+        "id": 5,
+        "userId": 1,
+        "postId": 1,
+        "text": "Great Post, I'm in love with you",
+        "commentId": 2
     }
 ]

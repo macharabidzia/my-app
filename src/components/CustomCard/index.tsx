@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Button, Input } from 'reactstrap';
 
@@ -6,7 +6,8 @@ enum CardTypes {
   comment = 'comment',
   post = 'post',
 }
-const CustomCard = ({ data, onClick, title, type }: any) => {
+const CustomCard = ({ data, onClick, title, type, children }: any) => {
+  const [value, setValue] = useState('');
   return (
     <Card className="card">
       <Card.Body>
@@ -20,12 +21,17 @@ const CustomCard = ({ data, onClick, title, type }: any) => {
             <Button onClick={onClick}>{title}</Button>
           </Card.Link>
         )}
+        {children}
       </Card.Body>
       {type === CardTypes.comment && (
         <Card.Footer>
-          <Input type="text" />
+          <Input
+            value={value}
+            onChange={(e: any) => setValue(e.target.value)}
+            type="text"
+          />
           <br />
-          <Button onClick={onClick}>Reply</Button>
+          <Button onClick={(e) => onClick(e, value, data.id)}>Reply</Button>
         </Card.Footer>
       )}
     </Card>

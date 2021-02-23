@@ -4,6 +4,7 @@ import './styles.css';
 import IComment from '../../core/models/comment.model';
 import { listComments } from '../../core/store/comments/actions';
 import CustomCard from '../../components/CustomCard';
+import { addReply } from '../../core/store/replies/actions';
 
 interface ICommentSelector {
   loading: boolean;
@@ -13,9 +14,15 @@ interface ICommentSelector {
 }
 const Comments = () => {
   const commentList = useSelector((state: any) => state.comments);
-  const [page, setpage] = useState(1);
-  const dispatch = useDispatch();
   const { error, postId, comments = [] }: ICommentSelector = commentList;
+
+  const repliesList = useSelector((state: any) => state.replies);
+  const { replies = [] }: any = repliesList;
+
+  const [page, setpage] = useState(1);
+
+  const dispatch = useDispatch();
+
   const tempPostId = useRef(postId);
 
   const handleScroll = (event: any) => {
@@ -23,6 +30,17 @@ const Comments = () => {
     if (scrollHeight - scrollTop === clientHeight) {
       setpage((prev) => prev + 1);
     }
+  };
+  const addReplyHandler = (event: any, value: string, commentId: number) => {
+    dispatch(
+      addReply({
+        postId,
+        commentId,
+        text: value,
+        userId: 1,
+        id: replies.length + 1,
+      })
+    );
   };
 
   useEffect(() => {
@@ -36,10 +54,25 @@ const Comments = () => {
   }, [dispatch, page]);
 
   if (error) return <div>Something went wrong</div>;
+
   return (
     <div onScroll={handleScroll} className="comments">
       {comments.map((comment: any, index: number) => (
-        <CustomCard type="comment" title="Reply" data={comment} key={index} />
+        <CustomCard
+          onClick={addReplyHandler}
+          type="comment"
+          title="Reply"
+          data={comment}
+          key={index}
+        >
+          {replies.map((reply: any, index: number) =>
+            reply.commentId === comment.id ? (
+              <div key={index}>{reply.text}</div>
+            ) : (
+              ''
+            )
+          )}
+        </CustomCard>
       ))}
     </div>
   );

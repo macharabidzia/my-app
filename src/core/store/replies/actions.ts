@@ -3,6 +3,7 @@ import {
   REPLIES_LIST_REQUEST,
   REPLIES_LIST_SUCCESS,
   REPLIES_LIST_FAIL,
+  ADD_REPLY,
 } from './constants';
 
 export const listReplies = (postId: number) => async (
@@ -31,4 +32,13 @@ export const listReplies = (postId: number) => async (
           : error.message,
     });
   }
+};
+export const addReply = (data: any) => (dispatch: any, getState: any) => {
+  const {
+    replies: { replies },
+  } = getState();
+  dispatch({
+    type: ADD_REPLY,
+    payload: [...replies, data],
+  });
 };

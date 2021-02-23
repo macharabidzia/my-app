@@ -5,6 +5,7 @@ import IPost from '../../core/models/post.model';
 import { clearComments, listComments } from '../../core/store/comments/actions';
 import { clearPosts, listPosts } from '../../core/store/posts/actions';
 import CustomCard from '../../components/CustomCard';
+import { listReplies } from '../../core/store/replies/actions';
 interface IPostListSelector {
   loading: boolean;
   error: string;
@@ -20,6 +21,7 @@ const Posts = () => {
   const handleClick = (id: number) => {
     dispatch(clearComments());
     dispatch(listComments(id, 1));
+    dispatch(listReplies(id));
   };
 
   const handleScroll = (event: any) => {

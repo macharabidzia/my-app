@@ -2,7 +2,7 @@ import {
   REPLIES_LIST_REQUEST,
   REPLIES_LIST_SUCCESS,
   REPLIES_LIST_FAIL,
-  REPLIES_SET_POST_ID,
+  ADD_REPLY,
 } from './constants';
 
 export const repliesListReducer = (
@@ -20,10 +20,11 @@ export const repliesListReducer = (
       };
     case REPLIES_LIST_FAIL:
       return { ...state, loading: false, error: action.payload };
-    case REPLIES_SET_POST_ID:
+    case ADD_REPLY:
       return {
         ...state,
-        postId: action.payload,
+        loading: false,
+        replies: action.payload,
       };
     default:
       return state;
