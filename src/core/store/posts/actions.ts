@@ -2,6 +2,7 @@ import {
   POSTS_LIST_REQUEST,
   POSTS_LIST_SUCCESS,
   POSTS_LIST_FAIL,
+  POSTS_LIST_CLEAR,
 } from './constants';
 import axios from 'axios';
 export const listPosts = (page: number) => async (
@@ -15,6 +16,10 @@ export const listPosts = (page: number) => async (
     const config = {
       headers: {},
     };
+    const {
+      posts: { posts },
+    } = getState();
+    console.log(posts);
     const { data } = await axios.get(
       `https://jsonplaceholder.typicode.com/posts`,
       config
@@ -22,7 +27,7 @@ export const listPosts = (page: number) => async (
     const paginatedData = data.slice((page - 1) * 10, page * 10);
     dispatch({
       type: POSTS_LIST_SUCCESS,
-      payload: paginatedData,
+      payload: [...posts, ...paginatedData],
     });
   } catch (error) {
     dispatch({
@@ -33,4 +38,7 @@ export const listPosts = (page: number) => async (
           : error.message,
     });
   }
+};
+export const clearPosts = () => {
+  return { type: POSTS_LIST_CLEAR, payload: [] };
 };

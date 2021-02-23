@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "userId": 1,
+        "postId": 1,
+        "text": "Hey, that's a nice picture you got over there",
+        "commentId": 1
+    },
+    {
+        "id": 2,
+        "userId": 1,
+        "postId": 1,
+        "text": "Bad, that's a nice picture you got over there",
+        "commentId": 1
+    },
+    {
+        "id": 3,
+        "userId": 1,
+        "postId": 1,
+        "text": "Good, that's a nice picture you got over there",
+        "commentId": 1
+    }
+]

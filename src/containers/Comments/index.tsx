@@ -5,22 +5,17 @@ import IComment from '../../core/models/comment.model';
 import { listComments } from '../../core/store/comments/actions';
 import CustomCard from '../../components/CustomCard';
 
+interface ICommentSelector {
+  loading: boolean;
+  error: string;
+  comments: IComment[];
+  postId: number;
+}
 const Comments = () => {
   const commentList = useSelector((state: any) => state.comments);
   const [page, setpage] = useState(1);
   const dispatch = useDispatch();
-  const [currentComments, setCurrentComments]: any = useState([]);
-  const {
-    loading = true,
-    error,
-    postId,
-    comments = [],
-  }: {
-    loading: boolean;
-    error: string;
-    comments: IComment[];
-    postId: number;
-  } = commentList;
+  const { error, postId, comments = [] }: ICommentSelector = commentList;
   const tempPostId = useRef(postId);
 
   const handleScroll = (event: any) => {
@@ -31,23 +26,20 @@ const Comments = () => {
   };
 
   useEffect(() => {
-    if (postId !== tempPostId.current) {
-      setpage(1);
-      setCurrentComments([]);
-      tempPostId.current = postId;
-    }
-    dispatch(listComments(postId, page));
     tempPostId.current = postId;
-  }, [dispatch, page, postId]);
+  }, [postId]);
 
   useEffect(() => {
-    setCurrentComments((prev: any) => [...prev, ...comments]);
-  }, [comments]);
+    if (tempPostId.current) {
+      dispatch(listComments(tempPostId.current, page));
+    }
+  }, [dispatch, page]);
 
+  if (error) return <div>Something went wrong</div>;
   return (
     <div onScroll={handleScroll} className="comments">
-      {currentComments.map((comment: any, index: number) => (
-        <CustomCard title="Reply" data={comment} key={index} />
+      {comments.map((comment: any, index: number) => (
+        <CustomCard type="comment" title="Reply" data={comment} key={index} />
       ))}
     </div>
   );

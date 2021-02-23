@@ -2,24 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles.css';
 import IPost from '../../core/models/post.model';
-import { setActivePostId } from '../../core/store/comments/actions';
-import { listPosts } from '../../core/store/posts/actions';
+import { clearComments, listComments } from '../../core/store/comments/actions';
+import { clearPosts, listPosts } from '../../core/store/posts/actions';
 import CustomCard from '../../components/CustomCard';
-interface IPostList {
+interface IPostListSelector {
   loading: boolean;
   error: string;
   posts: IPost[];
 }
 const Posts = () => {
   const [page, setpage] = useState(1);
-  const [currentPosts, setCurrentPosts]: any = useState([]);
   const dispatch = useDispatch();
 
   const postList = useSelector((state: any) => state.posts);
-  const { loading = true, error, posts = [] }: IPostList = postList;
+  const { error, posts = [] }: IPostListSelector = postList;
 
   const handleClick = (id: number) => {
-    dispatch(setActivePostId(id));
+    dispatch(clearComments());
+    dispatch(listComments(id, 1));
   };
 
   const handleScroll = (event: any) => {
@@ -28,23 +28,24 @@ const Posts = () => {
       setpage((prev) => prev + 1);
     }
   };
+  useEffect(() => {
+    dispatch(clearPosts());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(listPosts(page));
   }, [dispatch, page]);
 
-  useEffect(() => {
-    setCurrentPosts((prev: any) => [...prev, ...posts]);
-  }, [posts]);
-
+  if (error) return <div>Error </div>;
   return (
     <div onScroll={handleScroll} className="posts">
-      {currentPosts.map((post: any, index: any) => (
+      {posts.map((post: any, index: any) => (
         <CustomCard
           onClick={() => handleClick(post.id)}
           data={post}
           key={index}
           title="Comments"
+          type="post"
         />
       ))}
     </div>

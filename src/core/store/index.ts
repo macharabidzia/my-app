@@ -3,9 +3,11 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { commentsListReducer } from './comments/reducer';
 import { postsListReducer } from './posts/reducer';
+import { repliesListReducer } from './replies/reducer';
 const reducer = combineReducers({
   comments: commentsListReducer,
   posts: postsListReducer,
+  replies: repliesListReducer,
 });
 const initialState = {};
 const middleware = [thunk];
