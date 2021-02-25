@@ -3,11 +3,10 @@ import {
   SUGGESTIONS_LIST_SUCCESS,
   SUGGESTIONS_LIST_FAIL,
 } from './constants';
+import ISSuggestions from './index.model';
 
-export const suggestionsReducer = (
-  state = { loading: true, suggestions: [] },
-  action: any
-) => {
+const initialState: ISSuggestions = { loading: true, suggestions: [] };
+export const suggestionsReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SUGGESTIONS_LIST_REQUEST:
       return { ...state, loading: true };

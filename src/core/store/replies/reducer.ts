@@ -4,11 +4,9 @@ import {
   REPLIES_LIST_FAIL,
   ADD_REPLY,
 } from './constants';
-
-export const repliesListReducer = (
-  state = { loading: true, replies: [] },
-  action: any
-) => {
+import { ISReplies } from './index.model';
+const initialState: ISReplies = { loading: true, replies: [] };
+export const repliesListReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case REPLIES_LIST_REQUEST:
       return { ...state, loading: true };

@@ -4,11 +4,10 @@ import {
   TAGS_LIST_FAIL,
   ADD_TAG,
 } from './constants';
+import { ISTags } from './index.model';
 
-export const tagsReducer = (
-  state = { loading: true, tags: [] },
-  action: any
-) => {
+const initialState: ISTags = { loading: true, tags: [] };
+export const tagsReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case TAGS_LIST_REQUEST:
       return { ...state, loading: true };

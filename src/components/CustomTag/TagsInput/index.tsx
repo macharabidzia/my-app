@@ -1,12 +1,13 @@
 import React from 'react';
 import { Input } from 'reactstrap';
+import ITagsInput from './index.model';
 import './style.css';
-const TagsInput = (props: any) => {
+const TagsInput = (props: ITagsInput) => {
   const { removeTags, addTags, tags, onChange, inputValue } = props;
   return (
     <div className="tags-input">
       <ul id="tags">
-        {tags.map((tag: any, index: number) => (
+        {tags.map((tag: string, index: number) => (
           <li key={index} className="tag">
             <span className="tag-title">{tag}</span>
             <span className="tag-close-icon" onClick={() => removeTags(index)}>

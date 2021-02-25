@@ -9,25 +9,24 @@ import CustomTag from '../../components/CustomTag';
 import { listSuggestions } from '../../core/store/suggestions/actions';
 import { Badge } from 'reactstrap';
 import { listTags } from '../../core/store/tags/actions';
-
-interface ICommentSelector {
-  loading: boolean;
-  error: string;
-  comments: IComment[];
-  postId: number;
-}
+import ITag from '../../core/models/tag.model';
+import { ISComments } from '../../core/store/comments/index.model';
+import { ISReplies } from '../../core/store/replies/index.model';
+import ISSuggestions from '../../core/store/suggestions/index.model';
+import { ISTags } from '../../core/store/tags/index.model';
+import IReply from '../../core/models/reply.model';
 const Comments = () => {
   const commentList = useSelector((state: any) => state.comments);
-  const { error, postId, comments = [] }: ICommentSelector = commentList;
+  const { error, postId, comments = [] }: ISComments = commentList;
 
   const repliesList = useSelector((state: any) => state.replies);
-  const { replies = [] }: any = repliesList;
+  const { replies = [] }: ISReplies = repliesList;
 
   const suggeestionList = useSelector((state: any) => state.suggestions);
-  const { suggestions = [] }: any = suggeestionList;
+  const { suggestions = [] }: ISSuggestions = suggeestionList;
 
   const tagsList = useSelector((state: any) => state.tags);
-  const { tags = [] }: any = tagsList;
+  const { tags = [] }: ISTags = tagsList;
 
   const [page, setpage] = useState(1);
 
@@ -41,7 +40,11 @@ const Comments = () => {
       setpage((prev) => prev + 1);
     }
   };
-  const addReplyHandler = (event: any, value: string, commentId: number) => {
+  const addReplyHandler = (
+    e: any,
+    value: string | undefined,
+    commentId: number | undefined
+  ) => {
     dispatch(
       addReply({
         postId,
@@ -70,10 +73,10 @@ const Comments = () => {
 
   return (
     <div onScroll={handleScroll} className="comments">
-      {comments.map((comment: any, index: number) => (
+      {comments.map((comment: IComment, index: number) => (
         <div key={index}>
           {tags.map(
-            (tag: any, tagIndex: number) =>
+            (tag: ITag, tagIndex: number) =>
               tag.commentId === comment.id && (
                 <Badge key={tagIndex}>{tag.text}</Badge>
               )
@@ -86,7 +89,7 @@ const Comments = () => {
             data={comment}
           >
             {replies.map(
-              (reply: any, replyIndex: number) =>
+              (reply: IReply, replyIndex: number) =>
                 reply.commentId === comment.id && (
                   <div key={replyIndex}>{reply.text}</div>
                 )

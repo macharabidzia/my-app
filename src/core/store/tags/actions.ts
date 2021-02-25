@@ -34,7 +34,6 @@ export const addTag = (data: any[]) => (dispatch: any, getState: any) => {
   const {
     tags: { tags },
   } = getState();
-  console.log(data);
   dispatch({
     type: ADD_TAG,
     payload: [...tags, ...data],

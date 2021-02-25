@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Button, Input } from 'reactstrap';
+import ICustomCard from './index.model';
 
 enum CardTypes {
   comment = 'comment',
   post = 'post',
 }
-const CustomCard = ({ data, onClick, title, type, children, user }: any) => {
+const CustomCard: React.FC<ICustomCard> = (props: ICustomCard) => {
+  const { data, onClick, title, type, children, user } = props;
+
   const [value, setValue] = useState('');
   return (
     <Card className="card">
       <Card.Body>
-        <Card.Title>{data.title}</Card.Title>
+        <Card.Title>
+          {type === CardTypes.post ? data.title : data.name}
+        </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
           {user ? user.name : data.email}
         </Card.Subtitle>

@@ -6,15 +6,18 @@ import TagsInput from './TagsInput';
 import './style.css';
 import { addTag } from '../../core/store/tags/actions';
 import { useDispatch } from 'react-redux';
-const CustomTag = ({ suggestions, commentId }: any) => {
-  const [tags, setTags]: any = useState([]);
-  const [currentSuggestions, setCurrentSuggestions] = useState([]);
+import ICustomTag from './index.model';
+import ITag from '../../core/models/tag.model';
+const CustomTag = (props: ICustomTag) => {
+  const { suggestions, commentId } = props;
+  const [tags, setTags] = useState<string[]>([]);
+  const [currentSuggestions, setCurrentSuggestions] = useState<string[]>([]);
   const [inputValue, setInputValue]: any = useState('');
 
   const dispatch = useDispatch();
   const onTextChange = (e: any) => {
     const value = e;
-    let tempSuggetions: any = [];
+    let tempSuggetions: string[] = [];
     if (value.length > 0) {
       const regex = new RegExp(`${value}`, 'i');
       tempSuggetions = suggestions.sort().filter((v: any) => regex.test(v));
@@ -29,7 +32,7 @@ const CustomTag = ({ suggestions, commentId }: any) => {
   };
 
   const submitTags = () => {
-    let tagObjects = tags.map((tag: any, index: number) =>
+    const tagObjects: ITag[] = tags.map((tag: string, index: number) =>
       Object.create({
         commentId,
         text: tag,
@@ -40,7 +43,7 @@ const CustomTag = ({ suggestions, commentId }: any) => {
   };
   const removeTags = (indexToRemove: any) => {
     setTags([
-      ...tags.filter((_: any, index: number) => index !== indexToRemove),
+      ...tags.filter((tag: string, index: number) => index !== indexToRemove),
     ]);
   };
   const addTags = (value: string) => {

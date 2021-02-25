@@ -3,11 +3,9 @@ import {
   USERS_LIST_SUCCESS,
   USERS_LIST_FAIL,
 } from './constants';
-
-export const usersReducer = (
-  state = { loading: true, users: [] },
-  action: any
-) => {
+import { ISUsers } from './index.model';
+const initialState: ISUsers = { loading: true, users: [] };
+export const usersReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case USERS_LSIT_REQUEST:
       return { ...state, loading: true };

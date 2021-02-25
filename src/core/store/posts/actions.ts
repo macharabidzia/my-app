@@ -5,7 +5,7 @@ import {
   POSTS_LIST_CLEAR,
 } from './constants';
 import axios from 'axios';
-export const listPosts = (page: number) => async (
+export const listPosts = (page: number, userId = '') => async (
   dispatch: any,
   getState: any
 ) => {
@@ -20,10 +20,11 @@ export const listPosts = (page: number) => async (
       posts: { posts },
     } = getState();
     console.log(posts);
-    const { data } = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts`,
-      config
-    );
+    let url = `https://jsonplaceholder.typicode.com/posts`;
+    if (userId) {
+      url = `https://jsonplaceholder.typicode.com/posts?userId=${userId}`;
+    }
+    const { data } = await axios.get(url, config);
     const paginatedData = data.slice((page - 1) * 10, page * 10);
     dispatch({
       type: POSTS_LIST_SUCCESS,

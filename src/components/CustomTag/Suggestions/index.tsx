@@ -1,14 +1,19 @@
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
-const Suggestions = ({ suggestions, suggestionSelected }: any) => {
+import ISuggestion from './index.model';
+const Suggestions = (props: ISuggestion) => {
+  const { suggestions, suggestionSelected } = props;
   if (suggestions.length === 0) {
     return null;
   }
   return (
     <ListGroup>
-      {suggestions.map((item: any, index: number) => (
-        <ListGroupItem onClick={() => suggestionSelected(item)} key={index}>
-          {item}
+      {suggestions.map((suggestion: string, index: number) => (
+        <ListGroupItem
+          onClick={() => suggestionSelected(suggestion)}
+          key={index}
+        >
+          {suggestions}
         </ListGroupItem>
       ))}
     </ListGroup>
