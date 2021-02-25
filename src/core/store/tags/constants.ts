@@ -1,0 +1,5 @@
+export const TAGS_LIST_REQUEST = 'TAGS_LIST_REQUEST';
+export const TAGS_LIST_SUCCESS = 'TAGS_LIST_SUCCESS';
+export const TAGS_LIST_FAIL = 'TAGS_LIST_FAIL';
+
+export const ADD_TAG = 'ADD_TAG';

@@ -6,14 +6,14 @@ enum CardTypes {
   comment = 'comment',
   post = 'post',
 }
-const CustomCard = ({ data, onClick, title, type, children }: any) => {
+const CustomCard = ({ data, onClick, title, type, children, user }: any) => {
   const [value, setValue] = useState('');
   return (
     <Card className="card">
       <Card.Body>
         <Card.Title>{data.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
-          Giorgi Matcharashvili
+          {user ? user.name : data.email}
         </Card.Subtitle>
         <Card.Text>{data.body}</Card.Text>
         {type === CardTypes.post && (

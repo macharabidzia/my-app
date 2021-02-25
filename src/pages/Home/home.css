@@ -6,3 +6,11 @@
   height: 600px;
   overflow: auto;
 }
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  align-self: center;
+  justify-self: center;
+}

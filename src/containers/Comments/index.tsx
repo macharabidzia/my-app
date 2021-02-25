@@ -5,6 +5,10 @@ import IComment from '../../core/models/comment.model';
 import { listComments } from '../../core/store/comments/actions';
 import CustomCard from '../../components/CustomCard';
 import { addReply } from '../../core/store/replies/actions';
+import CustomTag from '../../components/CustomTag';
+import { listSuggestions } from '../../core/store/suggestions/actions';
+import { Badge } from 'reactstrap';
+import { listTags } from '../../core/store/tags/actions';
 
 interface ICommentSelector {
   loading: boolean;
@@ -18,6 +22,12 @@ const Comments = () => {
 
   const repliesList = useSelector((state: any) => state.replies);
   const { replies = [] }: any = repliesList;
+
+  const suggeestionList = useSelector((state: any) => state.suggestions);
+  const { suggestions = [] }: any = suggeestionList;
+
+  const tagsList = useSelector((state: any) => state.tags);
+  const { tags = [] }: any = tagsList;
 
   const [page, setpage] = useState(1);
 
@@ -46,7 +56,10 @@ const Comments = () => {
   useEffect(() => {
     tempPostId.current = postId;
   }, [postId]);
-
+  useEffect(() => {
+    dispatch(listSuggestions());
+    dispatch(listTags());
+  }, [dispatch]);
   useEffect(() => {
     if (tempPostId.current) {
       dispatch(listComments(tempPostId.current, page));
@@ -58,21 +71,31 @@ const Comments = () => {
   return (
     <div onScroll={handleScroll} className="comments">
       {comments.map((comment: any, index: number) => (
-        <CustomCard
-          onClick={addReplyHandler}
-          type="comment"
-          title="Reply"
-          data={comment}
-          key={index}
-        >
-          {replies.map((reply: any, index: number) =>
-            reply.commentId === comment.id ? (
-              <div key={index}>{reply.text}</div>
-            ) : (
-              ''
-            )
+        <div key={index}>
+          {tags.map(
+            (tag: any, tagIndex: number) =>
+              tag.commentId === comment.id && (
+                <Badge key={tagIndex}>{tag.text}</Badge>
+              )
           )}
-        </CustomCard>
+          <br />
+          <CustomCard
+            onClick={addReplyHandler}
+            type="comment"
+            title="Reply"
+            data={comment}
+          >
+            {replies.map(
+              (reply: any, replyIndex: number) =>
+                reply.commentId === comment.id && (
+                  <div key={replyIndex}>{reply.text}</div>
+                )
+            )}
+          </CustomCard>
+          {suggestions.length > 0 && (
+            <CustomTag commentId={comment.id} suggestions={suggestions} />
+          )}
+        </div>
       ))}
     </div>
   );
