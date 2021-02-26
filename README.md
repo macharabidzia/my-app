@@ -1,46 +1,37 @@
-# Getting Started with Create React App
+PROJECT DOCUMENTATION
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---Summary--:
 
-## Available Scripts
+Home page has 2 containers post and comments which have their own redux state and actions.
 
-In the project directory, you can run:
+Tags,suggestions, users and replies have their own redux store actions and reducers to do crud and other operations on each one of them.
 
-### `yarn start`
+Componenents have their own model which are stored in their respective folders and Data models are stored in core -> models folder.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Each reducer has it's own state model which is stored in each of their respective folders.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+-- --
 
-### `yarn test`
+--Utilized Stack/ Tools--
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Bootstrap
+Redux
+React-Redux (Bridge)
 
-### `yarn build`
+-- --
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-- Development Timeline --
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Most time went on working with hooks so there are no unnececary re-renders and structuring the application and relating each reply, tags, users to respective parent data correctly.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Each module took for approx 4 hours.
 
-### `yarn eject`
+Since working on multiple projects couldn't track exact timing, reconsidering old sollutions also also played role.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+-- --
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).

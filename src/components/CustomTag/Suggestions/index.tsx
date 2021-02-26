@@ -13,7 +13,7 @@ const Suggestions = (props: ISuggestion) => {
           onClick={() => suggestionSelected(suggestion)}
           key={index}
         >
-          {suggestions}
+          {suggestion}
         </ListGroupItem>
       ))}
     </ListGroup>
