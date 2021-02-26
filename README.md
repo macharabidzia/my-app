@@ -2,6 +2,8 @@ PROJECT DOCUMENTATION
 
 ---Summary--:
 
+Project was created with npm create-react-app and utilized modular css.
+
 Home page has 2 containers post and comments which have their own redux state and actions.
 
 Tags,suggestions, users and replies have their own redux store actions and reducers to do crud and other operations on each one of them.
